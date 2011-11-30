@@ -1,0 +1,84 @@
+ul.keyboard-text {
+    width: 480px;
+    margin: 10px auto;
+    padding: 0;
+    overflow: hidden;
+    border-top: 1px solid #3A3D42;
+
+    background: #757D8A;
+    background-image: -moz-linear-gradient(#9098A3, #454f5d);
+	
+    box-shadow: 0 1px 0 rgba(255,255,255,.3) inset;
+}
+
+ul.keyboard-text li {
+    text-align: center;
+    margin: .5em .1em .25em;
+    list-style: none;
+}
+
+ul.keyboard-text li:first-child {
+    margin-top:.3em;
+}
+
+ul.keyboard-text li div {
+    display: inline-block;
+
+    color: #3A3D42;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 0 1px 1px white;
+    font-weight: bold;
+
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,.45);  
+    background: #ECEDEF;
+    background-image: -moz-linear-gradient(#f8f8f9, #dddfe1);
+
+    -moz-border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.7), 0 1px 0 rgba(0,0,0,.3);
+
+    margin: 0 .2%;
+    padding: .02em 0 .03em;
+    color: black;
+    font-size: 2em;
+}
+
+ul.keyboard-text li div.special_on {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+}
+
+ul.keyboard-text li div.special_off {
+    background:#757D8A;
+    background-image: -moz-linear-gradient(#7f8792, #535b68);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+}
+
+ul.keyboard-text li div.space {
+    min-width: 60%;
+}
+
+ul.keyboard-text li div.shift {
+    background-image: url(sym_keyboard_shift.png);
+}
+
+ul.keyboard-text li div.delete {
+    background-image: url(sym_keyboard_delete.png);
+}
+
+ul.keyboard-text li div.symbol {
+    background-image: url(sym_keyboard_123.png);
+}
+
+ul.keyboard-text li div.return {
+    background-image: url(sym_keyboard_return.png);
+}
+
+ul.keyboard-text li div.space {
+    background-image: url(sym_keyboard_space.png);
+}
