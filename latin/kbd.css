@@ -1,4 +1,4 @@
-ul.keyboard-text {
+div.keyboard {
     width: 480px;
     margin: 10px auto;
     padding: 0;
@@ -11,17 +11,16 @@ ul.keyboard-text {
     box-shadow: 0 1px 0 rgba(255,255,255,.3) inset;
 }
 
-ul.keyboard-text li {
-    text-align: center;
-    margin: .5em .1em .25em;
-    list-style: none;
-}
-
-ul.keyboard-text li:first-child {
+div.keyboard:first-child {
     margin-top:.3em;
 }
 
-ul.keyboard-text li div {
+div.keyboard > div {
+    text-align: center;
+    margin: .5em .1em .25em;
+}
+
+div.keyboard > div > div {
     display: inline-block;
 
     color: #3A3D42;
@@ -44,41 +43,15 @@ ul.keyboard-text li div {
     font-size: 2em;
 }
 
-ul.keyboard-text li div.special_on {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 80%;
-}
-
-ul.keyboard-text li div.special_off {
+div.keyboard > div > div.special-off {
     background:#757D8A;
     background-image: -moz-linear-gradient(#7f8792, #535b68);
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 80%;
 }
 
-ul.keyboard-text li div.space {
-    min-width: 60%;
+div.keyboard > div > #symbol, #return {
+    width: 19%;
 }
 
-ul.keyboard-text li div.shift {
-    background-image: url(sym_keyboard_shift.png);
-}
-
-ul.keyboard-text li div.delete {
-    background-image: url(sym_keyboard_delete.png);
-}
-
-ul.keyboard-text li div.symbol {
-    background-image: url(sym_keyboard_123.png);
-}
-
-ul.keyboard-text li div.return {
-    background-image: url(sym_keyboard_return.png);
-}
-
-ul.keyboard-text li div.space {
-    background-image: url(sym_keyboard_space.png);
+div.keyboard > div > #space {
+    width: 60%;
 }

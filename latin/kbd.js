@@ -1,3 +1,4 @@
+/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- /
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 
 'use strict';
@@ -158,14 +159,6 @@ var IME = (function () {
     symbol: true
   };
 
-  function keyWidth(label, unit) {
-    if (!(label in specialKeys))
-      return unit;
-    if (label == "space")
-      return unit * 7.3;
-    return unit * 1.5;
-  }
-
   // Merge the common base keyboard layout into all derived layouts.
   var common = layouts.common;
   if (common) {
@@ -187,10 +180,10 @@ var IME = (function () {
   // toggle a special key on/off
   function toggle(element) {
       if (isOn(element)) {
-	  element.className = element.className.replace("_on", "_off");
+	  element.className = element.className.replace("-on", "-off");
 	  return;
       }
-      element.className = element.className.replace("_off", "_on");
+      element.className = element.className.replace("-off", "-on");
   }
 
   // turn all regular keys into upper case
@@ -228,42 +221,54 @@ var IME = (function () {
         lang = "en";
       var layout = layouts[lang] || lang.en;
       var keyboard = layout[mode] || layout.text;
-      var rows = document.createElement('ul');
-      rows.className = "keyboard-" + mode;
+      container.className = "keyboard";
 
-      // calculate the max number of non-special keys in a row
-      var max = 0;
+      // calculate width of each key
+      var maxKeysPerRow = 0;
+      for (var n = 0; n < keyboard.length; ++n)
+        maxKeysPerRow = Math.max(keyboard[n].length, maxKeysPerRow);
+      var minKeyWidth = (100 / maxKeysPerRow) * 0.95; // leave room for margin
+
       for (var n = 0; n < keyboard.length; ++n) {
+        var row = document.createElement('div');
+        container.appendChild(row);
         var keys = keyboard[n];
-        var width = 0;
+
+        // calculate number of special keys on this row
+        var numSpecialKeys = 0;
         for (var m = 0; m < keys.length; ++m)
-          width += keyWidth(keys[m], 1);
-        if (width > max)
-          max = width;
-      }
-      var unit = 94 / max;
+          if (keys[m] in specialKeys)
+            ++numSpecialKeys;
 
-      for (var n = 0; n < keyboard.length; ++n) {
-        var row = document.createElement('li');
-        rows.appendChild(row);
-        var keys = keyboard[n];
+        // width of special keys
+        var specialKeyWidth =
+          (1 + (maxKeysPerRow - keys.length) / numSpecialKeys) * minKeyWidth;
+
         for (var m = 0; m < keys.length; ++m) {
           var key = document.createElement('div');
           var label = keys[m];
-	  key.id = label;
+          key.id = label;
+          var style = key.style;
+          style.minWidth = minKeyWidth + "%";
           if (label in specialKeys) {
-            key.className = "key special_off " + label;
-            key.innerHTML = "&nbsp;";
-          } else {
-	    key.className = "key";
-            key.textContent = label;
+            key.className = "special special-off";
+            if (label != "space") {
+              style.backgroundImage = "url(sym_keyboard_" + label + ".png)";
+              style.backgroundRepeat = "no-repeat";
+              style.backgroundPosition = "center";
+              style.backgroundSize = "30px%";
+            }
+            if (n != keyboard.length - 1) // the last row has custom width in css
+              style.minWidth = specialKeyWidth + "%";
+            label = "&nbsp;";
           }
-          key.style.minWidth = keyWidth(label, unit) + "%";
-	  key.onclick = onclick;
+          key.onclick = onclick;
+          var block = document.createElement('div');
+          block.innerHTML = label;
+          key.appendChild(block);
           row.appendChild(key);
         }
       }
-      container.appendChild(rows);
     }
   };
 })();
